@@ -50,14 +50,7 @@ fn spawn_targets(mut commands: Commands, game_assets: Res<GameAssets>) {
         commands
             .spawn(SceneBundle {
                 scene: game_assets.target_scene.clone(),
-                // TODO fix model to point in the right direction so can use standard look_at
-                transform: Transform::from_xyz(-x, 0.0, 3.0).with_rotation(Quat::from_euler(
-                    EulerRot::XYZ,
-                    (-90.0_f32).to_radians(),
-                    (0.0_f32).to_radians(),
-                    (90.0_f32).to_radians(),
-                )),
-
+                transform: Transform::from_xyz(-x, 0.0, 3.0),
                 ..default()
             })
             .insert(PhysicsBundle::moving_entity(Vec3::new(0.4, 0.4, 0.4)))
@@ -95,9 +88,8 @@ fn move_targets(
         if delta_target.length().round() > delta {
             let movement = delta_target.normalize() * delta;
             transform.translation += movement.extend(0.0).xzy();
-            //TODO
-            // let y = transform.translation.y;
-            // transform.look_at(path.waypoints[target.path_index].extend(y).xzy(), Vec3::Y);
+            let y = transform.translation.y;
+            transform.look_at(path.waypoints[target.path_index].extend(y).xzy(), Vec3::Y);
         } else {
             //At current step
             target.path_index += 1;
