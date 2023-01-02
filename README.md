@@ -1,6 +1,12 @@
 # Bevy Tower Defence
 A basic rust 3d tower defence game in bevy
 
+## Instructions
+To run:
+
+`cargo run`
+
+
 ## Credits
 ### Tutorial
 The basic game was made based on the following tutorial series:
